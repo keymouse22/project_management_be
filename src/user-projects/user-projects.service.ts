@@ -10,8 +10,8 @@ export class UserProjectsService {
   constructor(@InjectModel('Projects') private userProjectModel : Model<projects>) {}
 
   async create(createUserProjectDto: CreateUserProjectDto) {
-    const createdUser = await new this.userProjectModel({...createUserProjectDto}).save();
-    return createdUser;
+    await new this.userProjectModel({...createUserProjectDto}).save();
+    return this.userProjectModel.find().exec();
   }
 
   findAll() {
