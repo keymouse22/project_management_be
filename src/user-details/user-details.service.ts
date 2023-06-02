@@ -38,6 +38,8 @@ export class UserDetailsService {
       const isMatch = await bcrypt.compare(password, userDetail.password);
       if (isMatch) {
         return {
+          name: userDetail.name,
+          email: userDetail.email,
           access_token: await this.jwtService.signAsync(payload),
         };
       }else {
