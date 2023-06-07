@@ -23,8 +23,8 @@ export class ProjectTaskController {
   }
 
   @Patch()
-  update(@Body() updateProjectTaskDto: UpdateProjectTaskDto) {
-    return this.projectTaskService.update(updateProjectTaskDto);
+  update(@Body() createProjectTaskDto: CreateProjectTaskDto) {
+    return this.projectTaskService.update(createProjectTaskDto);
   }
 
   @Delete(':id')

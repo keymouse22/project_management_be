@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProjectTaskDto } from './dto/create-project-task.dto';
 import { UpdateProjectTaskDto } from './dto/update-project-task.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -22,9 +22,11 @@ export class ProjectTaskService {
     return await this.projectTaskModel.find({project_id: id});
   }
 
-  async update(updateProjectTaskDto: UpdateProjectTaskDto) {
-    const task = await this.projectTaskModel.find({_id: updateProjectTaskDto.project_id});
-    return task
+  async update(createProjectTaskDto: CreateProjectTaskDto) {
+    const response = await this.projectTaskModel.updateOne({_id: createProjectTaskDto._id}, {$set: {board_name: createProjectTaskDto?.board_name, title: createProjectTaskDto?.title, description: createProjectTaskDto?.description, hours: createProjectTaskDto?.hours, comments: createProjectTaskDto?.comments}}
+    )
+    console.log(response)
+    return this.projectTaskModel.find().exec();
   }
 
   remove(id: number) {
