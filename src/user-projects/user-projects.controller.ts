@@ -12,7 +12,7 @@ export class UserProjectsController {
     return this.userProjectsService.create(createUserProjectDto);
   }
 
-  @Get("all-project")
+  @Get()
   findAll() {
     return this.userProjectsService.findAll();
   }
@@ -22,9 +22,9 @@ export class UserProjectsController {
     return this.userProjectsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserProjectDto: UpdateUserProjectDto) {
-    return this.userProjectsService.update(+id, updateUserProjectDto);
+  @Patch('edit')
+  update(@Body() updateUserProjectDto: UpdateUserProjectDto) {
+    return this.userProjectsService.update(updateUserProjectDto);
   }
 
   @Delete(':id')

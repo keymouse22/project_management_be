@@ -9,20 +9,22 @@ import { task } from './entities/project-task.entity';
 export class ProjectTaskService {
   constructor(@InjectModel('Task') private projectTaskModel : Model<task>) {}
 
-  create(createProjectTaskDto: CreateProjectTaskDto) {
-    return 'This action adds a new projectTask';
+  async create(createProjectTaskDto: CreateProjectTaskDto) {
+    await new this.projectTaskModel(createProjectTaskDto).save();
+    return this.projectTaskModel.find().exec()
   }
 
-  findAll() {
-    return `This action returns all projectTask`;
+  async findAll() {
+    return await this.projectTaskModel.find().exec()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} projectTask`;
+  async findOne(id: string) {
+    return await this.projectTaskModel.find({project_id: id});
   }
 
-  update(id: number, updateProjectTaskDto: UpdateProjectTaskDto) {
-    return `This action updates a #${id} projectTask`;
+  async update(updateProjectTaskDto: UpdateProjectTaskDto) {
+    const task = await this.projectTaskModel.find({_id: updateProjectTaskDto.project_id});
+    return task
   }
 
   remove(id: number) {

@@ -19,12 +19,12 @@ export class ProjectTaskController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.projectTaskService.findOne(+id);
+    return this.projectTaskService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProjectTaskDto: UpdateProjectTaskDto) {
-    return this.projectTaskService.update(+id, updateProjectTaskDto);
+  @Patch()
+  update(@Body() updateProjectTaskDto: UpdateProjectTaskDto) {
+    return this.projectTaskService.update(updateProjectTaskDto);
   }
 
   @Delete(':id')

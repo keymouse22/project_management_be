@@ -14,19 +14,21 @@ export class UserProjectsService {
     return this.userProjectModel.find().exec();
   }
 
-  findAll() {
-    return this.userProjectModel.find().exec();
+  async findAll() {
+    return await this.userProjectModel.find().exec();
   }
 
   findOne(id: number) {
     return `This action returns a #${id} userProject`;
   }
 
-  update(id: number, updateUserProjectDto: UpdateUserProjectDto) {
-    return `This action updates a #${id} userProject`;
+  async update(updateUserProjectDto: UpdateUserProjectDto) {
+    await this.userProjectModel.updateOne({"project_name": updateUserProjectDto.project_name});
+    return this.userProjectModel.find().exec();
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} userProject`;
+ 
+  async remove(id: number) {
+    await this.userProjectModel.deleteOne({"_id": id});
+    return this.userProjectModel.find().exec();
   }
 }

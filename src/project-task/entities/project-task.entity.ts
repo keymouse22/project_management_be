@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 @Schema()
 export class task {
    @Prop()
-   project_id: number;
+   board_name: string;
    @Prop()
    title: string;
    @Prop()
@@ -11,5 +11,8 @@ export class task {
    hours: number;
    @Prop()
    comments: string;
+   @Prop()
+   project_id: string;
 }
+
 export const TaskSchema = SchemaFactory.createForClass(task);
