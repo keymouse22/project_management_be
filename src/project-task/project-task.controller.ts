@@ -29,6 +29,6 @@ export class ProjectTaskController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.projectTaskService.remove(+id);
+    return this.projectTaskService.remove(id);
   }
 }

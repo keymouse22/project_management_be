@@ -25,11 +25,13 @@ export class ProjectTaskService {
   async update(createProjectTaskDto: CreateProjectTaskDto) {
     const response = await this.projectTaskModel.updateOne({_id: createProjectTaskDto._id}, {$set: {board_name: createProjectTaskDto?.board_name, title: createProjectTaskDto?.title, description: createProjectTaskDto?.description, hours: createProjectTaskDto?.hours, comments: createProjectTaskDto?.comments}}
     )
-    console.log(response)
-    return this.projectTaskModel.find().exec();
+    return this.projectTaskModel.find({project_id: createProjectTaskDto.project_id});
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} projectTask`;
+  async remove(id: string) {
+    const project = await this.projectTaskModel.find({_id: id});
+    const projectId = project[0].project_id;
+    await this.projectTaskModel.deleteOne({"_id": id});
+    return await this.projectTaskModel.find({project_id: projectId});
   }
 }
