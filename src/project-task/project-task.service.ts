@@ -11,7 +11,7 @@ export class ProjectTaskService {
 
   async create(createProjectTaskDto: CreateProjectTaskDto) {
     await new this.projectTaskModel(createProjectTaskDto).save();
-    return this.projectTaskModel.find().exec()
+    return this.projectTaskModel.find({project_id: createProjectTaskDto.project_id});
   }
 
   async findAll() {
