@@ -34,4 +34,8 @@ export class ProjectTaskService {
     await this.projectTaskModel.deleteOne({"_id": id});
     return await this.projectTaskModel.find({project_id: projectId});
   }
+
+  async deleteAllTask(id: string) {
+    await this.projectTaskModel.deleteMany({project_id: id});
+  }
 }

@@ -5,6 +5,7 @@ export class projects {
    project_name: string;
    @Prop()
    project_id: string;
-  
+   @Prop()
+   created_at: string
 }
 export const ProjectsSchema = SchemaFactory.createForClass(projects);

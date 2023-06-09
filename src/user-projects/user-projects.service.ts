@@ -4,10 +4,12 @@ import { UpdateUserProjectDto } from './dto/update-user-project.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { projects } from './entities/user-project.entity';
+import { task } from 'src/project-task/entities/project-task.entity';
+import { ProjectTaskService } from 'src/project-task/project-task.service';
 
 @Injectable()
 export class UserProjectsService {
-  constructor(@InjectModel('Projects') private userProjectModel : Model<projects>) {}
+  constructor(@InjectModel('Projects') private userProjectModel : Model<projects>,  private projectTaskService: ProjectTaskService) {}
 
   async create(createUserProjectDto: CreateUserProjectDto) {
     await new this.userProjectModel({...createUserProjectDto}).save();
@@ -27,8 +29,9 @@ export class UserProjectsService {
     return this.userProjectModel.find().exec();
   }
  
-  async remove(id: number) {
+  async remove(id: string) {
     await this.userProjectModel.deleteOne({"_id": id});
+    await this.projectTaskService.deleteAllTask(id);
     return this.userProjectModel.find().exec();
   }
 }
